@@ -1,18 +1,10 @@
-# coding: utf-8
-#########################################################################
-# 网站: <a href="http://www.crazyit.org">疯狂Java联盟</a>               #
-# author yeeku.H.lee kongyeeku@163.com                                  #
-#                                                                       #
-# version 1.0                                                           #
-#                                                                       #
-# Copyright (C), 2001-2018, yeeku.H.Lee                                 #
-#                                                                       #
-# This program is protected by copyright laws.                          #
-#                                                                       #
-# Program Name:                                                         #
-#                                                                       #
-# <br>Date:                                                             #
-#########################################################################
+"""
+4.2.3  不要遗忘冒号
+1.  从Python 语法解释器的角度来看,Python冒号精确表示代码块的开始点——这个功能不仅在条件执行体中如此,
+后面的循环体、方法体、类体全都遵守该规则。
+2.  如果程序遗忘了冒号,那么Python 解释器就无法识别代码块的开始点。例如如下程序。
+
+"""
 age = 24
 if age > 20
     print("年龄已经大于20岁了")

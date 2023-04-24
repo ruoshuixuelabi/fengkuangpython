@@ -1,18 +1,10 @@
-# coding: utf-8
-#########################################################################
-# 网站: <a href="http://www.crazyit.org">疯狂Java联盟</a>               #
-# author yeeku.H.lee kongyeeku@163.com                                  #
-#                                                                       #
-# version 1.0                                                           #
-#                                                                       #
-# Copyright (C), 2001-2018, yeeku.H.Lee                                 #
-#                                                                       #
-# This program is protected by copyright laws.                          #
-#                                                                       #
-# Program Name:                                                         #
-#                                                                       #
-# <br>Date:                                                             #
-#########################################################################
+"""
+如果忘记正确地缩进，很可能导致程序的运行结果超出我们的预期。例如如下程序。
+4.2.2  不要随意缩进
+
+需要说明的是，虽然Python 语法允许代码块随意缩进N 个空格，但同一个代码块内的代码必须保持相同的缩进，
+不能一会缩进2个空格， 一会缩进4个空格。
+"""
 s_age = input("请输入您的年龄:")
 age = int(s_age)
 if age > 20 :

@@ -1,21 +1,12 @@
-# coding: utf-8
-#########################################################################
-# 网站: <a href="http://www.crazyit.org">疯狂Java联盟</a>               #
-# author yeeku.H.lee kongyeeku@163.com                                  #
-#                                                                       #
-# version 1.0                                                           #
-#                                                                       #
-# Copyright (C), 2001-2018, yeeku.H.Lee                                 #
-#                                                                       #
-# This program is protected by copyright laws.                          #
-#                                                                       #
-# Program Name:                                                         #
-#                                                                       #
-# <br>Date:                                                             #
-#########################################################################
+"""
+1.  从前面的示例可以看到,Python执行if语句时,会判断if条件是True还是False。
+ 那么if条件是不是只能使用bool类型的表达式呢?不是。 if条件可以是任意类型,当下面的值作为bool表达式时,会被解释器当作False处理。
+False 、None 、0 、"" 、() 、[] 、{}
+2.  从上面介绍可以看出,除了False 本身,各种代表"空"的None、 空字符串、空元组、空列表、空字典都会被当成False处理。
+"""
 # 定义空字符串
 s = ""
-if s :
+if s:
     print('s不是空字符串')
 else:
     print('s是空字符串')
