@@ -1,58 +1,82 @@
-# coding: utf-8
-#########################################################################
-# 网站: <a href="http://www.crazyit.org">疯狂Java联盟</a>               #
-# author yeeku.H.lee kongyeeku@163.com                                  #
-#                                                                       #
-# version 1.0                                                           #
-#                                                                       #
-# Copyright (C), 2001-2018, yeeku.H.Lee                                 #
-#                                                                       #
-# This program is protected by copyright laws.                          #
-#                                                                       #
-# Program Name:                                                         #
-#                                                                       #
-# <br>Date:                                                             #
-#########################################################################
+"""
+1.  异常机制已经成为判断一门编程语言是否成熟的标准,除传统的像 C 语言没有提供异常机制之外,
+目前主流的编程语言如Python、Java、Kotlin等都提供了成熟的异常机制。
+异常机制可以使程序中的异常处理代码和正常业务代码分离,保证程序代码更加优雅,并可以提高程序的健壮性。
+2.  Python 的异常机制主要依赖try、except、else、finally和 raise五个关键字,
+其中在try关键字后缩进的代码块简称try块,它里面放置的是可能引发异常的代码；
+在except后对应的是异常类型 和一个代码块,用于表明该except块处理这种类型的代码块；
+在多个except块之后可以放一个else 块,表明程序不出现异常时还要执行else块；
+最后还可以跟一个 finally块 ,finally块用于回收在 try块里打开的物理资源,异常机制会保证finally块总被执行；
+而raise用于引发一个实际的异常, raise可以单独作为语句使用,引发一个具体的异常对象。
+
+7.2	异常处理机制
+
+3.  Python 的异常处理机制可以让程序具有极好的容错性,让程序更加健壮。当程序运行出现意 外情况时,
+系统会自动生成一个Error对象来通知程序,从而实现将"业务实现代码"和"错误处 理代码"分离,提供更好的可读性。
+
+7.2.1	使用try…except捕获异常
+
+4.  如果在执行 try 块里的业务逻辑代码时出现异常,系统自动生成一个异常对象,该异常对象被提交给 Python 解释器,这个过程被称为引发异常。
+5.  当 Python 解释器收到异常对象时,会寻找能处理该异常对象的 except 块,如果找到合适的 except块,则把该异常对象交给该except 块处理,
+这个过程被称为捕获异常。如果 Python 解释器找不到捕获异常的 except 块,则运行时环境终止, Python 解释器也将退出。
+6.  不管程序代码块是否处于try块中,甚至包括except块中的代码,只要执行该代码块时出现了异常,系统总会自动生成一个Error对象。
+如果程序没有为这段代码定义任何的 except块,则Python 解释器无法找到处理该异常的except块,
+程序就在此退出, 这就是前面看到的例子程序在遇到异常时退出的情形。
+7.  下面使用异常处理机制来改写第4章五子棋游戏中用户下棋部分的代码。
+8.  上面程序把处理用户输入字符串的代码都放在try块里执行,只要用户输入的字符串不是有效的坐标值
+(包括字母不能正确解析,没有逗号不能正确解析,解析出来的坐标引起数组越界 ……),系统就将引发一个异常对象,
+并把这个异常对象交给对应的 except块(也就是上面程序中粗体字代码 块)处理。
+except块的处理方式是向用户提示坐标不合法,然后使用continue忽略本次循环剩下的代码,开始执行下一次循环。
+这就保证了该五子棋游戏有足够的容错性——
+用户可以随意输入,程序不会因为用户输入不合法而突然退出,程序会向用户提示输入不合法,让用户再次输入。
+
+"""
 # 定义棋盘的大小
 BOARD_SIZE = 15
 # 定义一个二维列表来充当棋盘
 board = []
-def initBoard() :
-    # 把每个元素赋为"╋"，用于在控制台画出棋盘
-    for i in range(BOARD_SIZE) :
+
+
+def initBoard():
+    # 把每个元素赋为"╋",用于在控制台画出棋盘
+    for i in range(BOARD_SIZE):
         row = ["╋"] * BOARD_SIZE
         board.append(row)
+
+
 # 在控制台输出棋盘的方法
-def printBoard() :
+def printBoard():
     # 打印每个列表元素
-    for i in range(BOARD_SIZE) :
-        for j in range(BOARD_SIZE) :
+    for i in range(BOARD_SIZE):
+        for j in range(BOARD_SIZE):
             # 打印列表元素后不换行
             print(board[i][j], end="")
         # 每打印完一行列表元素后输出一个换行符
         print()
+
+
 initBoard()
 printBoard()
-inputStr = input("请输入您下棋的坐标，应以x,y的格式：\n")
-while inputStr != None :
+inputStr = input("请输入您下棋的坐标,应以x,y的格式：\n")
+while inputStr != None:
     try:
-        # 将用户输入的字符串以逗号（,）作为分隔符，分隔成2个字符串
-        x_str, y_str = inputStr.split(sep = ",")
+        # 将用户输入的字符串以逗号（,）作为分隔符,分隔成2个字符串
+        x_str, y_str = inputStr.split(sep=",")
         # 如果要下棋的点不为空
         if board[int(y_str) - 1][int(x_str) - 1] != "╋":
-            inputStr = input("您输入的坐标点已有棋子了，请重新输入\n")
+            inputStr = input("您输入的坐标点已有棋子了,请重新输入\n")
             continue
         # 把对应的列表元素赋为"●"。
         board[int(y_str) - 1][int(x_str) - 1] = "●"
     except Exception:
-        inputStr = input("您输入的坐标不合法，请重新输入，下棋坐标应以x,y的格式\n")
+        inputStr = input("您输入的坐标不合法,请重新输入,下棋坐标应以x,y的格式\n")
         continue
     '''
-     电脑随机生成2个整数，作为电脑下棋的坐标，赋给board列表
+     电脑随机生成2个整数,作为电脑下棋的坐标,赋给board列表
      还涉及
-        1．坐标的有效性，只能是数字，不能超出棋盘范围
-        2．下的棋的点，不能重复下棋
-        3．每次下棋后，需要扫描谁赢了
+        1．坐标的有效性,只能是数字,不能超出棋盘范围
+        2．下的棋的点,不能重复下棋
+        3．每次下棋后,需要扫描谁赢了
     '''
     printBoard()
-    inputStr = input("请输入您下棋的坐标，应以x,y的格式：\n")
+    inputStr = input("请输入您下棋的坐标,应以x,y的格式：\n")
