@@ -12,8 +12,8 @@ import mysql.connector
 
 # ①、连接数据库
 conn = conn = mysql.connector.connect(user='root', password='32147',
-    host='localhost', port='3306',
-    database='python', use_unicode=True)
+                                      host='localhost', port='3306',
+                                      database='python', use_unicode=True)
 # ②、获取游标
 c = conn.cursor()
 # ③、调用callproc()方法执行存储过程
