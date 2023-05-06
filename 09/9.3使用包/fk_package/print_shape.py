@@ -1,18 +1,8 @@
-# coding: utf-8
-#########################################################################
-# 网站: <a href="http://www.crazyit.org">疯狂Java联盟</a>               #
-# author yeeku.H.lee kongyeeku@163.com                                  #
-#                                                                       #
-# version 1.0                                                           #
-#                                                                       #
-# Copyright (C), 2001-2018, yeeku.H.Lee                                 #
-#                                                                       #
-# This program is protected by copyright laws.                          #
-#                                                                       #
-# Program Name:                                                         #
-#                                                                       #
-# <br>Date:                                                             #
-#########################################################################
+"""
+print_shape.py模块文件的内容如下。
+"""
+
+
 def print_blank_triangle(n):
     '使用星号打印一个空心的三角形'
     if n <= 0:
@@ -24,7 +14,7 @@ def print_blank_triangle(n):
             print(' ' * (2 * i - 1), end='')
         else:
             print('*' * (2 * i - 1), end='')
-        if i != 0: 
+        if i != 0:
             print('*')
         else:
             print('')

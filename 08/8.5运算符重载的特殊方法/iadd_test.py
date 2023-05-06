@@ -1,5 +1,5 @@
 """
-下面程序将示范为Rectangle类定义一个 __iadd__()方法，从而使得Rectangle对象可支持“+=” 运算。
+下面程序将示范为 Rectangle 类定义一个 __iadd__()方法,从而使得Rectangle对象可支持"+="运算。
 """
 
 
@@ -34,3 +34,7 @@ r = Rectangle(4, 5)
 # r有__iadd__方法,因此它支持+=运算
 r += 2
 print(r)  # Rectangle(width=6, height=7)
+"""
+上面程序为Rectangle提供了 __iadd__ 方法,因此Rectangle对象就可以支持"+="运算。 运行上面程序,可以看到如下输出结果。
+Rectangle(width=6, height=7)
+"""
