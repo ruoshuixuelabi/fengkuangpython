@@ -1,25 +1,10 @@
-# -*- coding: utf-8 -*-
-
-# Define your item pipelines here
-#
-# Don't forget to add your pipeline to the ITEM_PIPELINES setting
-# See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-
-#########################################################################
-# 网站: <a href="http://www.crazyit.org">疯狂Java联盟</a>               #
-# author yeeku.H.lee kongyeeku@163.com                                  #
-#                                                                       #
-# version 1.0                                                           #
-#                                                                       #
-# Copyright (C), 2001-2018, yeeku.H.Lee                                 #
-#                                                                       #
-# This program is protected by copyright laws.                          #
-#                                                                       #
-# Program Name:                                                         #
-#                                                                       #
-# <br>Date:                                                             #
-#########################################################################
+"""
+③ 开发 Pipeline。Pipeline 负责保存 Spider 返回的Item 对象(封装了爬取到的数据)。
+本项目爬取的目标是图片,因此程序得到图片的 URL 之后,既可将这些 URL 地址导入专门的下载工具中批量下载,
+也可在Python程序中直接下载。本项目的 Pipeline 将使用 urllib.request 包直接下载。下面是该项目的Pipeline程序。
+"""
 from urllib.request import *
+
 
 class UnsplashimagespiderPipeline(object):
     def process_item(self, item, spider):
@@ -38,3 +23,12 @@ class UnsplashimagespiderPipeline(object):
                     f.write(data)
         except:
             print('下载图片出现错误' % item['image_id'])
+
+
+"""
+上面程序中第一行粗体字代码用于拼接下载图片的完整地址。可能有读者会问：为何要在图片下载地址的后面追加"?force=true"?
+这并不是本项目所能决定的,读者可以把鼠标指针移动到 https://unsplash.com 
+网站中各图片右下角的下载按钮上,即可看到各图片的下载地址都会在 download 后追加"?force=true", 此处只是模拟这种行为而已。
+
+程序中第二行粗体字代码使用 urlopen()函数获取目标 URL 的数据,接下来即可读取图片数据, 并将图片数据写入下载的目标文件中。
+"""

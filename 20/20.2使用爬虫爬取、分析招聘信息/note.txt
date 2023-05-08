@@ -1,0 +1,497 @@
+20.2	使用爬虫爬取、分析招聘信息
+
+下面的项目将会使用基于 Scrapy 的爬虫自动爬取某招聘网站上的热门招聘信息,然后使用 Pygal 对这些招聘信息进行可视化分析,
+从而了解当前哪些行业最热门。
+
+20.2.1 创建Scrapy项目
+
+在使用 Scrapy 开发爬虫时,通常需要创建一个 Scrapy 项目。通过如下命令即可创建 Scrapy 项目。
+scrapy startproject   ZhipinSpider
+
+在上面命令中,scrapy是 Scrapy框架提供的命令;startproject 是 scrapy 的子命令,专门用于创建项目;ZhipinSpider就是要创建的项目名。
+
+提示：scrapy 除提供 startproject 子命令之外,它还提供了fetch(从指定URL 获取响应)、genspider(生成蜘蛛)、
+shell(启动交互式控制台)、 version(查看Scrapy版本)等常用的子命令。可以直接输入 scrapy 来查看该命令所支持的全部子命令。
+
+运行上面命令,将会看到如下输出结果。
+
+上面信息显示 Scrapy在当前目录下创建了一个 ZhipinSpider 项目,此时在当前目录下就可以看到一个ZhipinSpider目录,
+该目录就代表ZhipinSpider项目。
+
+查看 ZhipinSpider 项目,可以看到如下文件结构。
+
+ZHIPINSPIDER
+    scrapy.cfg
+    ZhipinSpider
+        items.py
+        middlewares.py
+        pipelines.py
+        settings.py
+        spiders
+            __init__.py
+            __pycache__
+        __pycache__
+
+下面大致介绍这些目录和文件的作用。
+(1)scrapy.cfg：项目的总配置文件,通常无须修改。
+ZhipinSpider：项目的 Python 模块,程序将从此处导入 Python 代码。
+ZhipinSpider/items.py：用于定义项目用到的 Item 类。Item 类就是一个 DTO(数据传输对象),通常就是定义N个属性,该类需要由开发者来定义。
+ZhipinSpider/pipelines.py：项目的管道文件,它负责处理爬取到的信息。该文件需要由开发者编写。
+ZhipinSpider/settings.py：项目的配置文件,在该文件中进行项目相关配置。
+ZhipinSpider/spiders：在该目录下存放项目所需的蜘蛛——蜘蛛负责抓取项目感兴趣的信息。
+
+为了更好地理解 Scrapy项目中各组件的作用,下面给出Scrapy概览图,如图20.3所示。
+
+在图20.3中可以看到,Scrapy 包含如下核心组件。
+调度器：该组件由 Scrapy 框架实现,它负责调用下载中间件从网络上下载资源。
+下载器：该组件由 Scrapy 框架实现,它负责从网络上下载数据,下载得到的数据会由 Scrapy 引擎自动交给蜘蛛。
+蜘蛛：该组件由开发者实现,蜘蛛负责从下载数据中提取有效信息。蜘蛛提取到的信息会由 Scrapy 引擎以Item 对象的形式转交给 Pipeline。
+Pipeline: 该组件由开发者实现,该组件接收到 Item 对象(包含蜘蛛提取的信息)后,可以将这些信息写入文件或数据库中。
+
+经过上面分析可知,使用Scrapy 开发网络爬虫主要就是开发两个组件：蜘蛛和Pipeline。
+
+20.2.2	使用shell调试工具
+
+本章的示例将会爬取 BOSS直聘网上广州地区的热门职位进行分析。
+首先使用浏览器访问 https://www.zhipin.com/c101280100/h_101280100/页面,即可看到广州地区的热门职位。
+
+这里我们要使用爬虫来爬取该页面中的信息,因此需要查看该页面的源代码。可以看到,该页面中包含工作信息的源代码如图20.4所示。
+
+下面将会使用 Scrapy 提供的 shell 调试工具来抓取该页面中的信息。使用如下命令来开启 shell 调试。
+scrapy  shell  https://www.zhipin.com/c101280100/h_101280100/
+
+运行上面命令,将会看到如图20.5所示的提示信息。
+
+[s]   response   <403 https://www.zhipin.com/c101280100/h_101280100/>
+
+从图20.5可以看出,此时Scrapy并未抓取到页面数据,页面返回了403错误,这表明目标网站开启了"防爬虫",
+不允许使用Scrapy"爬取"数据。为了解决这个问题,我们需要让Scrapy伪装成浏览器。
+
+为了让 Scrapy 伪装成浏览器,需要在发送请求时设置 User-Agent 头,将 User-Agent 的值设置为真实浏览器发送请求的 User-Agent。
+
+查看浏览器的 User-Agent,可按如下步骤进行操作(以Firefox为例)。
+① 启动 Firefox 浏览器,然后按下"Ctrl+Shift+I"快捷键打开浏览器的调试控制台,选择"网络"Tab 页。
+② 通过该浏览器可以正常浏览任意页面。
+③ 在浏览器下方的调试控制台中,将会显示浏览器向哪些资源发送了请求。
+④ 在调试控制台中选择浏览器所请求的任意一个资源,即可在右边看到浏览器发送请求的各种请求头,如图20.6所示。
+
+因此,可以使用如下命令让Scrapy伪装成Firefox来开启shell调试。
+
+
+scrapy shell  -s  USER_AGENT='Mozilla/5.0' https://www.zhipin.com/c101280100/h_101280100/
+
+执行上面命令,将可以看到如图20.7所示的提示信息。
+
+接下来就可以使用 XPath 或 CSS 选择器来提取我们感兴趣的信息了。
+
+为了让读者能看懂后面的代码,这里简单补充一点 XPath 的必要知识。表20.1中列出了XPath 最实用的简化写法。
+表20.1 XPath 最实用的简化写法
+
+表达式	                作用
+nodename	        匹配此节点的所有内容
+/	                        匹配根节点
+//	                        匹配任意位置的节点
+.	                        匹配当前节点
+..	                        匹配父节点
+@	                        匹配属性
+
+典型的,比如可以使用//div来匹配页面中任意位置处的<div…/>元素,
+也可以使用//div/span来匹配页面中任意位置处的<div…> 元素内的<span…> 子元素。
+
+XPath 还支持"谓词"——就是在节点后增加一个方括号,在方括号内放一个限制表达式对该节点进行限制。
+
+典型的,我们可以使用//div[@class]来匹配页面中任意位置处、有class属性的<div.../> 元素,
+也可以使用/div/span[1]来匹配页面中任意位置处的<div…>元素内的第一个<span…> 子元素;
+使用//div/span[last()]来匹配页面中任意位置处的<div…>元素内的最后一个<span…> 子元素;
+使用//div/span[last()-1]来匹配页面中任意位置处的<div…>元素内的倒数第二个<span…> 子元素 ……
+
+例如,想获取上面页面中的第一条工作信息的工作名称,从图20.4中可以看到,所有工作信息都位于
+<div class="job-primary">元素内,因此该XPath 的开始应该写成：
+//div[@class="job-primary"]
+
+接下来可以看到工作信息还处于<div class="info-primary">元素内,因此该 XPath 应该写成(此处不加谓词也可以):
+//div[@class="job-primary"]/div
+
+接下来可以看到工作信息还处于<h3 class="name">元素内,因此该 XPath 应该写成(此处不加谓词也可以):
+//div[@class="job-primary"]/div/h3
+
+依此类推,可以看到工作名称对应的 XPath 写成：
+//div[@class="job-primary"]/div/h3/a/div/text()
+
+在掌握了 XPath 的写法之后,即可在 Scrapy 的 shell 控制台调用response的 xpath() 方法来获取 XPath 匹配的节点。执行如下命令：
+response.xpath('//div[@class="job-primary"]/div/h3/a/div/text()').extract()
+上面的extract()方法用于提取节点的内容。运行上面命令,可以看到如图20.8所示的输出信息。
+
+除使用 XPath 匹配节点之外,Scrapy 也支持使用CSS 选择器来匹配节点。response对象的 css() 方法可用于获取CSS 选择器匹配的节点。
+
+例如,可以使用如下 CSS 选择器来匹配工资节点。
+div.job-primary>div.info-primary>h3.name  span
+提示：上面的 CSS 选择器是class选择器、父子选择器、包含选择器的综合写法,
+读者可参考《疯狂HTML5/CSS  3/JavaScript讲义》来系统学习CSS 选择器的知识。
+
+在掌握了CSS 选择器的写法之后,即可在 Scrapy 的 shell控制台调用response的 css()方法来 获取CSS 选择器匹配的节点。执行如下命令：
+response.css('div.job-primary>div.info-primary>h3.name  span').extract()
+
+上面的extract()方法用于提取节点的内容。运行上面命令,可以看到如图20.9所示的输出信息。
+
+相比之下,XPath 比 CSS 选择器的匹配能力更强,因此本章的项目会使用 XPath 来匹配、抓取感兴趣的信息。
+
+20.2.3	Scrapy开发步骤
+
+通过前面的 Scrapy shell 调试,已经演示了使用 XPath 从 HTML 文档中提取信息的方法,只要将这些调试的测试代码放在Spider中,
+即可实现真正的Scrapy 爬虫。
+
+基于 Scrapy 项目开发爬虫大致需要如下几个步骤。
+①定义 Item 类。该类仅仅用于定义项目需要爬取的 N 个属性。比如该项目需要爬取工作名称、工资、招聘公司等信息,
+则可以在items.py中增加如下类定义。
+
+上面程序中的一行粗体字代码表明所有的 Item 类都需要继承scrapy.Item 类,
+接下来就为所有需要爬取的信息定义对应的属性,每个属性都是一个scrapy.Field对象。
+
+该Item 类只是一个作为数据传输对象(DTO)的类,因此定义该类非常简单。
+②编写 Spider 类。应该将该 Spider 类文件放在 spiders 目录下。
+这一步是爬虫开发的关键,需要使用XPath 或 CSS 选择器来提取HTML 页面中感兴趣的信息。
+
+Scrapy为创建Spider提供了scrapy genspider命令,该命令的语法格式如下：
+scrapy genspider  [options]<name><domain>
+
+在命令行窗口中进入ZhipinSpider目录下,然后执行如下命令即可创建一个Spider。
+scrapy  genspider   job_position   "zhipin.com"
+
+运行上面命令,即可在ZhipinSpider项目的ZhipinSpider/spider目录下找到一个job_position.py 文件,打开该文件可以看到如下内容。
+
+import scrapy
+
+class JobPositionSpider(scrapy.Spider):
+    # 定义该Spider的名字
+    name = 'job_position'
+    # 定义该Spider允许爬取的域名
+    allowed_domains = ['zhipin.com']
+    # 定义该Spider爬取的首页列表
+    start_urls = ['https://zhipin.com/']
+
+    # 该方法负责提取response所包含的信息
+    # response代表下载器从start_urls中每个URL下载得到的响应
+    def parse(self, response):
+        pass
+
+上面程序就是 Spider 类的模板,该类的name 属性用于指定该Spider 的名字;
+allowed_domains 用于限制该Spider所爬取的域名;start_urls 指定该 Spider 会自动爬取的页面URL。
+Spider需要继承scrapy.Spider,并重写它的parse(self,response)方法——如上面程序所示。
+从该类来看,我们看不到发送请求、获取响应的代码,这也正是 Scrapy 的魅力所在——
+只要把所有需要爬取的页面URL 定义在 start_urls 列表中,Scrapy 的下载中间件就会负责从网络上下载数据,
+并将所有数据传给parse(self,response)方法的response参数。
+
+注意：如果在 Windows 上使用 genspider 命令来生成爬虫类,
+则容易引发SyntaxError: (unicode error)'utf-8' codec can't decode byte Oxb9 in position 0: invalid start byte错误,
+这是由于Windows 采用了 GBK  字符集。因此,需要手动将该 Spider 类保存为UTF-8字符集。
+                                                                                                                                                                                                           ……          ……      …
+一言以蔽之,开发者只要在 start_urls 列表中列出所有需要 Spider 爬取的页面URL,
+这些页面的数据就会"自动"传给parse(self,response)方法的response参数。
+
+因此,开发者主要就是做两件事情。
+(1)将要爬取的各页面 URL 定义在 start_urls 列表中。
+(2)在parse(self,response)方法中通过 XPath 或 CSS 选择器提取项目感兴趣的信息。
+下面将job position.py文件改为如下形式。
+
+上面程序中第一行粗体字代码修改了 start_urls 列表,重新定义了该Spider需要爬取的首页;
+接下来程序重写了Spider的 parse(self,response):方法。
+
+程序中第二行粗体字代码使用 XPath 匹配所有的'//div[@class="job-primary"]'节点------每个节点都包含一份招聘信息。
+因此,程序使用循环遍历每个'//div[@class="job-primary"]'节点,为每个节点都建立一个Zhipinspiderltem对象,
+并从该节点中提取项目感兴趣的信息存入 Zhipinspiderltem 对象中。
+
+程序最后一行粗体字代码使用yield语句将item 对象返回给Scrapy引擎。此处不能使用 return,
+因为 return 会导致整个方法返回,循环不能继续执行,而yield将会创建一个生成器。
+
+Spider使用 yield 将 item 返回给Scrapy 引擎之后,Scrapy 引擎将这些item 收集起来传给项目的 Pipeline,
+因此自然就到了使用Scrapy开发爬虫的第三步。
+
+
+
+20.2.4	使用JSON导出信息
+
+仅在控制台打印所爬取到的信息是不够的,程序既可以将这些信息保存到文件中,也可以将这些信息写入数据库中。
+下面程序将示范将信息以 JSON 格式保存到文件中。
+
+Scrapy项目使用 Pipeline 处理被爬取信息的持久化操作,因此程序只要修改 pipelines.py 文件即可。
+程序原来只是打印 item 对象所包含的信息,现在应该把item 对象中的信息存入文件中。该文件修改后的代码如下。
+
+
+20.2.5 将数据写入数据库
+
+除将爬取到的信息写入文件中之外,程序也可通过修改 Pipeline 文件将数据保存到数据库中。
+为了使用数据库来保存爬取到的信息,在 MySQL  的 python 数据库中执行如下 SQL 语句来创建  job_inf 数据表。
+
+
+20.2.6	使用Pygal展示招聘信息
+使用爬虫获取到数据之后,可以使用第19章介绍的数据可视化工具来分析这些数据。
+例如,此处我们要分析BOSS 直聘网站上热门职位所属的行业,广大读者也可根据这份数据来决定自己应该投身的行业。
+
+该项目对前面的 ZhipinSpider_json 项目进行了修改, ZhipinSpider_json 项目可以爬取到招聘职位的 JSON 数据,
+然后使用 Python 的 json 包读取这份 JSON 数据,再使用 Pygal 展示该数据。
+下面是负责展示数据的Python 程序。
+
+
+20.3  处理反爬虫
+
+对于 BOSS 直聘这种网站,当程序请求网页后,服务器响应内容包含了整个页面的 HTML 源代码,这样就可以使用爬虫来爬取数据。
+但有些网站做了一些"反爬虫"处理——其网页内容不是静态的,而是使用 JavaScript 动态加载的,此时的爬虫程序也需要做相应的改进。
+
+20.3.1 使用shell调试工具分析目标站点
+
+本项目爬取的目标站点是 https://unsplash.com/, 该网站包含了大量高清、优美的图片。
+本项目的目标是爬虫程序能自动识别并下载该网站上的所有图片。
+
+在开发该项目之前,依然先使用 Firefox 浏览该网站,然后查看该网站的源代码,将会看到页面的<body…> 元素几乎是空的,并没有包含任何图片。
+
+现在使用 Scrapy 的 shell 调试工具来看看该页面的内容。在控制台输入如下命令,启动 shell 调试。
+scrapy  shell  https://unsplash.com/
+
+执行上面命令,可以看到Scrapy 成功下载了服务器响应数据。
+接下来,通过如下命令来尝试获取所有图片的src属性(图片都是 img 元素,src 属性指定了图片的 URL)。
+response.xpath('//img/@src').extract()
+
+执行上面命令,将会看到返回一系列图片的URL,但它们都不是高清图片的URL。
+
+还是通过"Ctrl+Shift+I"快捷键打开 Firefox 的调试控制台,再次向https://unsplash.com/网站发送请求,
+接下来可以在Firefox的调试控制台中看到如图20.13所示的请求。
+
+可见,该网页动态请求图片的 URL 如下：
+
+https://unsplash.com/napi/photos?page=N&per_page=N&order_by=latest
+
+上面URL 中的page代表第几页,per_page 代表每页加载的图片数。使用Scrapy 的 shell调试 工具来调试该网址,输入如下命令。
+scrapy  shell   https://unsplash.com/napi/photos?page=1&per_page=10&order_by=latest
+
+上面命令代表请求第1页,每页显示10张图片的响应数据。
+执行上面命令,服务器响应内容是一段 JSON 数据,接下来在shell调试工具中输入如下命令。
+import json
+len(json.loads(response.text))
+
+从上面的调试结果可以看到,服务器响应内容是一个 JSON 数组(转换之后对应于 Python 的 list列表),且该数组中包含10个元素。
+
+使用Firefox直接请求https://unsplash.com/napi/photos?page=1&per_page=12&order_by=latest地址
+(如果希望使用更专业的工具,则可选择Postman),可以看到服务器响应内容如图20.14所示。
+
+在图20.14所示的 JSON 数据中点开0(代表第一个数组元素),此时可以看到如图20.15所示的图片数据。
+
+从图20.15中可以看到,每张图片数据都包含id、created_at(创建时间)、updated_at(更新时间)、
+width(图片宽度)、height(图片高度)等基本信息和一个links属性,该属性值是一个对象(转换之后对应于Python 的 dict),
+它包含了self、html、download、download_location 属性,其中 self代表浏览网页时的图片的URL;
+而 download 才是要下载的高清图片的URL。
+
+提示：网络爬虫毕竟是针对别人的网站"爬取"数据的,而目标网站的结构随时可能发生改变,读者应该学习这种分析方法,
+而不是"生搬硬套"地照抄本章的分析结果。
+
+尝试在 shell 调试工具中查看第一张图片的下载 URL ,应该在shell调试工具中输入如下命令。
+json.loads(response.text)[0]['links']['download']
+
+与图20.15对比不难看出,shell 调试工具输出的第一张图片的下载 URL 与图20.15所显示的第一张图片的下载 URL 完全相同。
+
+由此得到一个结论：该网页加载时会自动向 https://unsplash.com/napi/photos?page=N&per_page=N&order_by=latest发送请求,
+然后根据服务器响应的JSON 数据来动态加载图片。
+
+由于该网页是"瀑布流"设计(所谓"瀑布流"设计,就是网页没有传统的分页按钮,而是让用户通过滚动条来实现分页,
+当用户向下拖动滚动条时,程序会动态载入新的分页),当我们在 Firefox 中拖动滚动条时,
+可以在 Firefox 的调试控制台中看到再次向 https:/unsplash.com/napi/photos?page=N&per_page=N&order_by=latest发送了请求,
+只是page参数发生了改变。可见,为了不断地加载新的图片,程序只要不断地向该 URL 发送请求,并改变 page 参数即可。
+
+经过上面的分析之后,下面我们开始正式使用Scrapy来实现爬取高清图片。
+
+20.3.2	使用Scrapy爬取高清图片
+
+按照惯例,使用如下命令来创建一个Scrapy项目。
+scrapy   startproject  UnsplashImagespider
+
+然后在命令行窗口中进入 UnsplashlmageSpider 所在的目录下(不要进入UnsplashImageSpider\UnsplashlmageSpider目录下),
+执行如下命令来生成Spider类。
+scrapy   genspider   unsplash_image 'unsplash.com'
+
+上面两个命令执行完成之后,一个简单的Scrapy项目就创建好了。
+
+接下来需要修改 UnsplashImageSpider\items.py、UnsplashlmageSpider\pipelines.py、
+UnsplashlmageSpider\spiderslunsplash_image.py、UnsplashlmageSpider\settings.py文件,将它们全部改为使 用UTF-8 字符集来保存。
+现在按照如下步骤来开发该爬虫项目。
+① 定义ltem 类。由于本项目的目标是爬取高清图片,因此其所使用的Item 类比较简单,只要保存图片id 和图片下载地址即可。
+下面是该项目的Item类的代码。
+
+
+20.3.3	应对反爬虫的常见方法
+
+爬虫的本质就是"抓取"第三方网站中有价值的数据,因此,每个网站都会或多或少地采用一些反爬虫技术来防范爬虫。
+比如前面介绍的通过 User-Agent 请求头验证是否为浏览器、使用JavaScript动态加载资源等,这些都是常规的反爬虫手段。
+
+下面针对更强的反爬虫技术提供一些解决方案。
+
+1.IP地址验证
+
+有些网站会使用 IP 地址验证进行反爬虫处理,程序会检查客户端的 IP 地址,如果发现同一个 IP地址的客户端频繁地请求数据,
+该网站就会判断该客户端是爬虫程序。
+
+针对这种情况,我们可以让 Scrapy 不断地随机更换代理服务器的 IP 地址,这样就可以欺骗目标网站了。
+
+为了让 Scrapy 能随机更换代理服务器,可以自定义一个下载中间件,让该下载中间件随机更换代理服务器即可。
+
+Scrapy随机更换代理服务器只要两步。
+① 打开 Scrapy 项目下的middlewares.py 文件,在该文件中增加定义如下类。
+class RandomProxyMiddleware(object) :
+    #动态设置代理服务器的IP地址
+    def process_request(self, request,spider):
+        #get_random_proxy()函数随机返回代理服务器的IP地址和端口
+        request.meta["proxy"] = get_random_proxy()
+
+上面程序通过自定义的下载中间件为Scrapy设置了代理服务器。
+程序中的 get_random_proxy()函数需要能随机返回代理服务器的 IP 地址和端口,这就需要开发者事先准备好一系列代理服务器,
+该函数能随机从这些代理服务器中选择一个。
+② 通过 settings.py 文件设置启用自定义的下载中间件。在settings.py 文件中增加如下配置代码。
+#配置自定义的下载中间件
+DOWNLOADER_MIDDLEWARES ={
+    'ZhipinSpider.middlewares.RandomProxyMiddleware':   543,
+}
+
+2. 禁用Cookie
+有些网站可以通过跟踪 Cookie 来识别是否是同一个客户端。Scrapy 默认开启了Cookie,
+这样目标网站就可以根据 Cookie 来识别爬虫程序是同一个客户端。
+
+目标网站可以判断：如果同一个客户端在单位时间内的请求过于频繁,则基本可以断定这个客户端不是正常用户,
+很有可能是程序操作(比如爬虫),此时目标网站就可以禁用该客户端的访问。
+
+针对这种情况,可以让 Scrapy 禁用Cookie(Scrapy 不需要登录时才可禁用Cookie)。
+在 settings.py 文件中取消如下代码的注释即可禁用Cookie。
+COOKIES_ENABLED = False
+
+3. 违反爬虫规则文件
+
+在很多 Web 站点目录下都会提供一个robots.txt文件,在该文件中制定了一系列爬虫规则。
+例如 ,weibo.com 网站下的robots.txt文件的内容如下。
+Sitemap: http://weibo.com/sitemap.xml User-Agent: Baiduspider Disallow: User-agent: 360Spider Disallow: User-agent: Googlebot Disallow: User-agent: * Allow: /ads.txt User-agent: Sogou web spider Disallow: User-agent: bingbot Disallow: User-agent: smspider Disallow: User-agent: HaosouSpider Disallow: User-agent: YisouSpider Disallow: User-agent: * Disallow: /
+
+该规则文件指定该站点只接受 Baidu 的网络爬虫,不接受其他爬虫程序。
+
+为了让爬虫程序违反爬虫规则文件的限制,强行爬取站点信息,可以在settings文件中取消如下代码的注释来违反站点制定的爬虫规则。
+指定不遵守爬虫规则
+ROBOTSTXT_OBEY    =    False
+
+4. 限制访问频率
+
+正如前面所提到的,当同一个 IP 地址、同一个客户端访问目标网站过于频繁时(正常用户的访问速度没那么快),
+其很可能会被当成机器程序(比如爬虫)禁止访问。
+
+为了更好地模拟正常用户的访问速度,可以限制Scrapy 的访问频率。在settings文件中取消如下代码的注释即可限制 Scrapy 的访问频率。
+#开启访问频率限制
+AUTOTHROTTLE_ENABLED = True
+设置访问开始的延迟
+AUTOTHROTTLE_START_DELAY  =  5 #设置访问之间
+AUTOTHROTTLE_MAX_DELAY =  60
+#设置Scrapy 并行发给每台远程服务器的请求数量
+AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
+#设置下载之后的自动延迟
+DOWNLOAD DELAY = 3
+
+5. 图形验证码
+
+有些网站为了防止机器程序访问,会做一些很"变态"有设计,它会记录同一个客户端、
+同一个 IP 地址的访问次数,只要达到一定的访问次数(不管你是正常用户,还是机器程序),
+目标网站就会弹出一个图形验证码让你输入,只有成功输入了图形验证码才能继续访问。
+
+为了让机器识别这些图形验证码,通常有两种解决方式。
+(1)使用PIL、Libsvm 等库自己开发程序来识别图形验证码。这种方式具有最大的灵活性,只是需要开发人员自己编码实现。
+(2)通过第三方识别。有不少图形验证码的在线识别网站,它们的识别率基本可以做到90%以上。
+但是识别率高的在线识别网站通常都要收费,而免费的往往识别率不高,还不如自己写程序来识别。
+
+20.3.4	整合Selenium模拟浏览器行为
+
+某些网站要求用户必须先登录,然后才能获取网络数据,这样爬虫程序将无法随意爬取数据。为了登录该网站,通常有两种做法。
+(1)直接用爬虫程序向网站的登录处理程序提交请求,将用户名、密码、验证码等作为请求参数,登录成功后记录登录后的 Cookie 数据。
+(2)使用真正的浏览器来模拟登录,然后记录浏览器登录之后的 Cookie 数据。
+
+上面两种方式的目的是一样的,都是为了登录目标网站,记录登录后的 Cookie 数据。但这两种方式各有优缺点。
+(1)第一种方式需要爬虫开发人员自己来处理网站登录、 Cookie 管理等复杂行为。
+这种方式的优点是完全由自己来控制程序,因此爬虫效率高、灵活性好;
+缺点是编程麻烦,尤其是当目标网站有非常强的反爬虫机制时,爬虫开发人员要花费大量的时间来处理。
+(2)第二种方式则完全使用真正的浏览器(比如 Firefox、Chrome 等)来模拟登录。
+这种方式的优点是简单、易用,而且几乎可以轻松登录所有网站(因为本来就是用浏览器登录的,
+正常用户怎么访问,爬虫启动的浏览器也怎么访问);缺点是需要启动浏览器,用浏览器加载页面,因此效率较低。
+
+在使用 Scrapy 开发爬虫程序时,经常会整合 Selenium 来启动浏览器登录。
+
+需要指出的是,Selenium 本身与爬虫并没有多大的关系,Selenium 开始主要是作为Web 应用的自动化测试工具来使用的,
+广大 Java 开发人员对Selenium(开始是用Java写成的)应该非常熟悉。
+Selenium 可以驱动浏览器对Web 应用进行测试,就像真正的用户在使用浏览器测试Web 应用一样。
+后来的爬虫程序正是借助于Selenium 的这个功能来驱动浏览器登录Web 应用的。
+
+为了在Python 程序中使用Selenium, 需要以下3步。
+① 为 Python  安装Selenium 库。运行如下命令,即可安装Selenium。
+pip  install  selenium
+运行上面命令,安装成功后将会看到如下提示信息。
+Installing           collected           packages:           selenium
+Successfully                installed                selenium-3.14.0
+② 为 Selenium 下载对应的浏览器驱动。 Selenium  支持 Chrome、Firefox、Edge、Safari 等各种主流的浏览器,
+登录 https://selenium-python.readthedocs.io/installation.html#drivers 即可看到各浏览器驱动的下载链接。
+本章我们将驱动 Firefox 来模拟登录,因此,通过其页面的链接来下载Firefox对应的驱动(对于32位操作系统,下载32位的驱动;
+对于64位操作系统,下载64位的驱动)。下载完成后将得到一个压缩包,解压该压缩包将得到一个geckodriver.exe文件,
+可以将该文件放在任意目录下,本项目将该驱动文件直接放在项目目录下。
+③ 安装目标浏览器。比如本项目需要启动 Firefox 浏览器,那么就需要在目标机器上安装 Firefox浏览器。
+除安装 Firefox浏览器之外,还应该将 Firefox 浏览器的可执行程序 (firefox.exe) 所在的目录添加到PATH 环境变量中,
+以便Selenium 能找到该浏览器。
+经过上面3步, Python 程序即可使用Selenium 来启动Firefox浏览器,并驱动Firefox浏览目标网站。
+此处使用如下简单的程序进行测试。
+from selenium import webdriver
+import time
+
+# 通过executable_path指定浏览器驱动的路径
+browser = webdriver.Firefox(executable_path="WeiboSpider/geckodriver.exe")
+# 等待3秒,用于等待浏览器启动完成
+time.sleep(3)
+# 浏览指定网页
+browser.get("http://www.crazyit.org/")
+# 暂停5秒
+time.sleep(5)
+
+如果成功安装了 Selenium,并成功加载了 Firefox 浏览器驱动,且 Firefox 的可执行程序所在的目录位于 PATH  环境变量中,
+运行上面程序, Firefox 浏览器将会被启动,并自动访问 http://www.crazyit.org/站点。
+
+在成功安装了Selenium、驱动及目标浏览器之后,接下来我们在 Scrapy 项目中整合 Selenium,通过 Scrapy+Selenium 来登录weibo.com。
+
+按照惯例,首先创建一个 Scrapy 项目。在命令行窗口中执行如下命令。
+scrapy  startproject  WeiboSpider
+
+然后在命令行窗口中进入 WeiboSpider 所在的目录下(不要进入WeiboSpider\WeiboSpider目 录 下),执行如下命令来生成Spider类。
+scrapy  genspider  weibo_post "weibo.com"
+
+上面两个命令执行完成后, 一个简单的Scrapy项目就创建好了。
+
+接下来需要修改 WeiboSpiderlitems.py、WeiboSpider\pipelines.py、WeiboSpider\spiders\weibo_post.py、
+WeiboSpider'settings.py文件,将它们全部改为使用UTF-8 字符集来保存。
+
+本项目不再重复介绍使用Scrapy爬取普通文本内容的方法,而是重点介绍在Scrapy 项目中整合 Selenium 的方法,
+因此不需要修改items.py和 pipelines.py文件。
+本项目直接修改weibo_post.py文件,在Spider类中整合Selenium 调用Firefox登录weibo.com,
+接下来爬虫程序即可利用登录后的Cookie 数据来访问weibo 内容。
+
+使用 Selenium 调用 Firefox登录weibo.com,首先肯定要对 weibo.com 的登录页面进行分析,
+不过前面两个项目已经详细介绍了这种分析过程,故此处直接给出分析结果。
+(1)weibo 的登录页面是：https://weibo.com/login/。
+(2)在登录页面中输入用户名的文本框是：//input[@id="loginname"]节点。
+(3)在登录页面中输入密码的文本框是：//input[@type="password"]节点。
+(4)在登录页面中登录按钮是：//a[@node-type="submitBtn"]节点。
+
+
+20.4 本章小结
+
+本章详细介绍了使用 Scrapy 开发爬虫程序的方法和步骤。Scrapy 是 Python 领域专业的爬虫开发框架,
+Scrapy 框架已经完成爬虫程序的大部分通用工作,因此使用Scrapy 开发爬虫项目既简单又方便。
+读者需要重点掌握使用 Scrapy 开发爬虫项目的核心步骤：① 定义 Item 类;②开发 Spider,Spider 负责从网页上提取感兴趣的数据,
+也提取翻页链接;③开发Pipeline,Pipeline负责将Spider 提取的数据写入文件或数据库中。
+在此基础上,读者需要区别对待静态网页和动态网页,这两种网页的数据爬取方式略有差异。
+
+本章还介绍了针对反爬虫网站的一系列应对方法,包括通过自定义下载中间件来随机改变 Scrapy 爬虫项目的IP 地址等。
+本章最后介绍了使用 Scrapy 整合 Selenium 来实现自动化登录,通过这种方式可以让爬虫程序突破网页登录的限制,爬取那些受保护的信息。
+这些技巧都是开发爬虫项目的实用技术,值得读者认真掌握。
+
+本章练习
+1. 使用爬虫爬取某房产网站上广州地区的房屋出租信息,并分析广州地区出租房屋的热点区域。
+2. 使用爬虫自动下载http://desk.zol.com.cn/网站上的所有"风景"壁纸。
+3. 整合 Selenium 登录 crazyitorg 论坛,爬取该论坛"Java 技术"板块下的所有讨论帖子,并将数据保存到 MySQL 数据库中。
+
