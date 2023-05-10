@@ -9,7 +9,7 @@ Scrapy,Scrapy 本身已经整合了大量工具包(比如Twisted、Ixml、csssel
 
 20.1	Scrapy简介
 
-与其他 Python 包一样,Scrapy 也不是 Python 内置的包,因此必须先安装Scrapy,然后才能使用它。
+与其他 Python 包一样,Scrapy 也不是 Python 内置的包,因此必须先安装 Scrapy,然后才能使用它。
 
 20.1.1 了解Scrapy
 
