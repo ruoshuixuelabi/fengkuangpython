@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module fkmodule</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>fkmodule</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:d%3A%5Cbaidunetdiskdownload%5C766841%E3%80%8A%E7%96%AF%E7%8B%82python%E8%AE%B2%E4%B9%89%E3%80%8Bpdf%2B%E6%BA%90%E4%BB%A3%E7%A0%81%2B%E4%B9%A0%E9%A2%98%5Cfengkuangpython%5C16%5C16.1%5Cfkmodule.py">d:\baidunetdiskdownload\766841《疯狂python讲义》pdf+源代码+习题\fengkuangpython\16\16.1\fkmodule.py</a></font></td></tr></table>
+    <p><tt>经过漫长的软件开发、调试过程,开发人员终于得到了一个软件产品,但谁也没法保证这个软件产品是否满足实际要求。<br>
+为了检验该软件产品是否满足实际需要,必须对它进行测试。<br>
+&nbsp;<br>
+通常软件测试应用由测试人员来完成,而不应该是开发人员。因此,软件测试的目的不是为了修复软件,不是为了证明软件是满足要求的、可用的,<br>
+而只是为了找出软件系统中存在的缺陷,然后将这些缺陷提交给&nbsp;Bug&nbsp;管理系统(如Bugzilla等)。<br>
+修复工作与软件测试人员无关,应该由软件开发人员来完成。<br>
+&nbsp;<br>
+在传统的软件开发流程(如瀑布模型)中,习惯上将软件测试放在软件开发之后,也就是在软件开发完成后才进行软件测试;<br>
+但就目前实际的软件开发流程来看,软件开发和软件测试往往是同步进行的。<br>
+开发人员不断地为系统开发新功能,而测试人员则不断地测试它们,找出这些新功能中可能存在的缺陷,并提交给Bug&nbsp;管理系统,<br>
+开发者再修复这些缺陷。在一些更激进的开发流程(如&nbsp;测试驱动开发)中,甚至倡导先进行测试——<br>
+也就是先提供测试用例,然后再开发满足测试要求的&nbsp;软件。总之,软件测试已经成为软件工程中重要的一环,不可分割。<br>
+&nbsp;<br>
+16.1&nbsp;使用pydoc生成文档<br>
+&nbsp;<br>
+前面已经介绍了为函数、类、方法等编写文档——只要在函数、类、方法定义后定义一个字符串即可。<br>
+前面也介绍了使用&nbsp;help()&nbsp;函数和&nbsp;__doc__&nbsp;属性来查看函数、类、方法的文档,但这种方式总是在控制器中查看,有时候难免不太方便。<br>
+&nbsp;<br>
+借助于&nbsp;Python&nbsp;自带的&nbsp;pydoc&nbsp;模块,可以非常方便地查看、生成帮助文档,该文档是HTML&nbsp;格式的,因此查看、使用起来非常方便。<br>
+&nbsp;<br>
+这里先在codes.1&nbsp;目录下提供如下Python&nbsp;源文件(模块)。</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="fkmodule.html#User">User</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="User">class <strong>User</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#User">User</a>(name,&nbsp;age)<br>
+&nbsp;<br>
+<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="User-__init__"><strong>__init__</strong></a>(self, name, age)</dt><dd><tt>name初始化该用户的name<br>
+age初始化该用户的age</tt></dd></dl>
+
+<dl><dt><a name="User-eat"><strong>eat</strong></a>(self, food)</dt><dd><tt>定义用户吃东西的方法<br>
+food&nbsp;-&nbsp;代表用户正在吃的东西</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>NATIONAL</strong> = 'China'</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-print_rect"><strong>print_rect</strong></a>(height, width)</dt><dd><tt>定义一个打印矩形的函数<br>
+height&nbsp;-&nbsp;代表矩形的高<br>
+width&nbsp;-&nbsp;代表矩形的宽</tt></dd></dl>
+ <dl><dt><a name="-say_hi"><strong>say_hi</strong></a>(name)</dt><dd><tt>定义一个打招呼的函数<br>
+返回对指定用户打招呼的字符串</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>MY_NAME</strong> = '疯狂软件教育中心'</td></tr></table>
+</body></html>
