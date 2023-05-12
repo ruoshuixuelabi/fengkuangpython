@@ -1,24 +1,21 @@
-# coding: utf-8
-#########################################################################
-# 网站: <a href="http://www.crazyit.org">疯狂Java联盟</a>               #
-# author yeeku.H.lee kongyeeku@163.com                                  #
-#                                                                       #
-# version 1.0                                                           #
-#                                                                       #
-# Copyright (C), 2001-2018, yeeku.H.Lee                                 #
-#                                                                       #
-# This program is protected by copyright laws.                          #
-#                                                                       #
-# Program Name:                                                         #
-#                                                                       #
-# <br>Date:                                                             #
-#########################################################################
+"""
+与叠加柱状图类似的还有叠加折线图,叠加折线图使用 pygal.StackedLine 类来表示,
+叠加折线图的第二组折线的数据点同样叠加在第一组折线的数据点上。
+
+图19.27 叠加柱状图
+
+关于叠加折线图的示例程序,可以参考本书配套代码中 pygal_stacked_line_test.py文件。
+
+对应的是,如果客户需要让叠加柱状图和叠加折线图以水平方式显示,则 Pygal 提供了 pygal.HorizontalStackedBar
+和pygal.HorizontalStackedLine类来生成水平叠加柱状图和水平叠加折线图 。
+"""
+
 import pygal
 
 x_data = ['2011', '2012', '2013', '2014', '2015', '2016', '2017']
 # 构造数据
 y_data = [58000, 60200, 63000, 71000, 84000, 90500, 107000]
-y_data2 = [52000, 54200, 51500,58300, 56800, 59500, 62700]
+y_data2 = [52000, 54200, 51500, 58300, 56800, 59500, 62700]
 # 创建pygal.StackedBar对象（叠加折线图）
 stacked_line = pygal.StackedLine()
 # 添加两组数据
