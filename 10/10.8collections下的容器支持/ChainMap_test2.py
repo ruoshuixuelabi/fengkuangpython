@@ -1,6 +1,6 @@
 """
-1.  掌握了 ChainMap 的用法之后,接下来介绍的示例程序借鉴了Python 库文档中的一个例子,
-该例子将局部范围的定义、全局范围的定义、Python 内置定义链成一个ChainMap,
+掌握了 ChainMap 的用法之后,接下来介绍的示例程序借鉴了 Python 库文档中的一个例子,
+该例子将局部范围的定义、全局范围的定义、Python 内置定义链成一个 ChainMap,
 当程序通过该 ChainMap 获取变量时,将会按照局部定义、全局定义、内置定义的顺序执行搜索
 """
 from collections import ChainMap

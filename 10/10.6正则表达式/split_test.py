@@ -1,7 +1,8 @@
 """
-1.  re.split(pattern, string,maxsplit=0,flags=0): 使用pattern对 string进行分割,该函数返回分割得到的多个子串组成的列表。
-其中maxsplit参数控制最多分割几次。
-2.  如下程序示范了split()函数的用法。
+re.split(pattern, string,maxsplit=0,flags=0)：使用 pattern 对 string 进行分割,该函数返回分割得到的多个子串组成的列表。
+其中 maxsplit 参数控制最多分割几次。
+
+如下程序示范了split()函数的用法。
 """
 import re
 

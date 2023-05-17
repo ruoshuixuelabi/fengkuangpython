@@ -1,13 +1,11 @@
 import re
+print(re.search(r'<(?P<tag>\w+)>\w+</(?P=tag)>', '<h3>xx</h3>'))
 
 m1 = re.fullmatch('www', 'www')  # 开始位置可以匹配
 print(m1)
 print(re.fullmatch(r'\u0041\\', 'A\\'))  # 匹配A\
-
 print(re.fullmatch(r'\u0061\t', 'a\t'))  # 匹配a < 制表符 >
-
 print(re.fullmatch(r'\?\[', '?['))  # // 匹配?[
-
 print(re.fullmatch(r'c\wt', 'cat'))  # c\wt可以匹配cat、cbt、cct、cOt、c9t等一批字符串
 print(re.fullmatch(r'c\wt', 'c9t'))  # c\wt可以匹配cat、cbt、cct、cOt、c9t等一批字符串
 # 匹配如000-000-0000形式的电话号码

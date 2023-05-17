@@ -1,9 +1,10 @@
 """
-1.  事实上, Counter 继承了 dict类,因此它完全可以调用 dict 所支持的方法。此外, Counter 还提供了如下三个常用的方法。
-(1)elements():该方法返回该 Counter 所包含的全部元素组成的迭代器。
-(2)most_common([n]):该方法返回 Counter 中出现最多的 n 个元素。
-(3)subtract([iterable-or-mapping]): 该方法计算 Counter 的减法,其实就是计算减去之后各元素出现的次数。
-2.  下面程序示范了Counter 类中这些方法的用法示例。
+事实上,Counter 继承了 dict 类,因此它完全可以调用 dict 所支持的方法。此外, Counter 还提供了如下三个常用的方法。
+(1)elements()：该方法返回该 Counter 所包含的全部元素组成的迭代器。
+(2)most_common([n])：该方法返回 Counter 中出现最多的 n 个元素。
+(3)subtract([iterable-or-mapping])：该方法计算 Counter 的减法,其实就是计算减去之后各元素出现的次数。
+
+下面程序示范了Counter 类中这些方法的用法示例。
 """
 from collections import Counter
 
@@ -36,8 +37,10 @@ del e['w']
 # 再次访问'w'对应的value,'w'还是没有,因此返回0
 print(e['w'])  # 0
 """
-1.  上面程序中第一行粗体字代码调用了 Counter 对象的 elements()方法,该方法返回容器中所有元素组成的迭代器,
+上面程序中第一行粗体字代码调用了 Counter 对象的 elements()方法,该方法返回容器中所有元素组成的迭代器,
 Counter 记录了几个元素的出现次数,该方法就会返回几个对应的元素。
-2.  程序中第二行粗体字代码调用了 Counter 对象的 most_common(3) 方法,该方法会返回容器中出现次数最多的三个元素。
-3.  程序中第三行粗体字代码调用了 Counter 对象的 subtract()方法执行减法,实质上就是对元素出现的次数执行减法。
+
+程序中第二行粗体字代码调用了 Counter 对象的 most_common(3) 方法,该方法会返回容器中出现次数最多的三个元素。
+
+程序中第三行粗体字代码调用了 Counter 对象的 subtract()方法执行减法,实质上就是对元素出现的次数执行减法。
 """

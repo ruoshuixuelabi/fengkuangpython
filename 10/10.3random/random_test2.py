@@ -14,3 +14,6 @@ deck = collections.Counter(tens=16, low_cards=36)
 seen = random.sample(list(deck.elements()), k=20)
 # 统  计tens 元素有多少个,再除以20
 print(seen.count('tens') / 20)
+"""
+从上面的输出结果来看,在第一次抽取的 6 个元素中 Kotlin 完全没有被抽取到,这是因为它的被抽取比例太低了。
+"""

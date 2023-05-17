@@ -1,12 +1,13 @@
 """
 此外,对于 Counter 对象还有一些很常用的操作,比如把 Counter 对象转换成set(集合)、list(列表)、dict (字典)等,
-程序还可对Counter执行加、减、交、并运算,对 Counter 进行求正、求 负运算等。对Counter 执行各种运算的含义如下。
-(1)加：将两个Counter 对象中各key出现的次数相加,且只保留出现次数为正的元素。
-(2)减：将两个Counter对象中各key 出现的次数相减,且只保留出现次数为正的元素。
-(3)交：取两个Counter 对象中都出现的key 且 各key 对应的次数的最小数。
-(4)并：取两个Counter对象中各key 对应的出现次数的最大数。
+程序还可对 Counter 执行加、减、交、并运算,对 Counter 进行求正、求负运算等。对Counter 执行各种运算的含义如下。
+(1)加：将两个Counter 对象中各 key出现的次数相加,且只保留出现次数为正的元素。
+(2)减：将两个Counter对象中各 key 出现的次数相减,且只保留出现次数为正的元素。
+(3)交：取两个Counter 对象中都出现的 key 且各 key 对应的次数的最小数。
+(4)并：取两个Counter对象中各 key 对应的出现次数的最大数。
 (5)求正：只保留 Counter 对象中出现次数为0或正数的key-value对 。
 (6)求负：只保留 Counter 对象中出现次数为负数的key-value对,并将出现次数改为正数。
+
 下面程序示范了对Counter对象进行的这些常用操作。
 """
 from collections import Counter

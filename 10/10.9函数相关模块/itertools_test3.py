@@ -1,10 +1,11 @@
 """
 在 itertools模块中还有 一 些用于生成排列组合的工具函数。
 
-(1)product(p,q.… [repeat=1]):   用序列 p、q、 … 中的元素进行排列组合,就相当于使用嵌套循环组合。
-(2)permutations(p[,r]):   从序列 p 中 取 出r个元素组成全排列,将排列得到的元组作为新迭代器的元素。
-(3)combinations(p,r):   从序列 p 中 取 出r个元素组成全组合,元素不允许重复,将组合得到的元组作为新迭代器的元素。
-(4)combinations_with_replacement(p,r), 从序列 p 中取出 r 个元素组成全组合,元素允许重复,将组合得到的元组作为新迭代器的元素。
+(1)product(p,q.… [repeat=1])：用序列 p、q、…中的元素进行排列组合,就相当于使用嵌套循环组合。
+(2)permutations(p[,r])：从序列 p 中取出 r 个元素组成全排列,将排列得到的元组作为新迭代器的元素。
+(3)combinations(p,r)：从序列 p 中取出 r 个元素组成全组合,元素不允许重复,将组合得到的元组作为新迭代器的元素。
+(4)combinations_with_replacement(p,r)：从序列 p 中取出 r 个元素组成全组合,元素允许重复,将组合得到的元组作为新迭代器的元素。
+
 如下程序示范了上面4个函数的用法。
 """
 import itertools as it
