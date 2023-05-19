@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='google.protobuf.internal',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n,google/protobuf/internal/more_messages.proto\x12\x18google.protobuf.internal\"h\n\x10OutOfOrderFields\x12\x17\n\x0foptional_sint32\x18\x05 \x01(\x11\x12\x17\n\x0foptional_uint32\x18\x03 \x01(\r\x12\x16\n\x0eoptional_int32\x18\x01 \x01(\x05*\x04\x08\x04\x10\x05*\x04\x08\x02\x10\x03:C\n\x0foptional_uint64\x12*.google.protobuf.internal.OutOfOrderFields\x18\x04 \x01(\x04:B\n\x0eoptional_int64\x12*.google.protobuf.internal.OutOfOrderFields\x18\x02 \x01(\x03')
+  serialized_pb=_b('\n,google/protobuf/internal/more_messages.proto\x12\x18google.protobuf.internal\"h\n\x10OutOfOrderFields\x12\x17\n\x0foptional_sint32\x18\x05 \x01(\x11.1 Python的 GUI 库\x12\x17\n\x0foptional_uint32\x18\x03 \x01(\r\x12\x16\n\x0eoptional_int32\x18\x01 \x01(\x05*\x04\x08\x04\x10\x05*\x04\x08\x02\x10\x03:C\n\x0foptional_uint64\x12*.google.protobuf.internal.OutOfOrderFields\x18\x04 \x01(\x04:B\n\x0eoptional_int64\x12*.google.protobuf.internal.OutOfOrderFields\x18\x02 \x01(\x03')
 )
 
 

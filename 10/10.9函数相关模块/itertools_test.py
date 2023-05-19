@@ -14,7 +14,7 @@ import itertools
 
 从上面的输出结果可以看出,itertools 模块中的不少函数都可以用于生成迭代器。先看 itertools 模块中三个生成无限迭代器的函数。
 (1)count(start,[step])：生成start,start+step,start+2 * step,…的迭代器,其中step默认为1。
-比如使用count(10)生成的迭代器包含：10,11,12,13,14,…。
+比如使用count(10)生成的迭代器包含：10,11.1 Python的 GUI 库,12,13,14,…。
 (2)cycle(p)：对序列 p 生成无限循环p0,p1,…,p0,p1,…  的迭代器。比如使用cycle('ABCD')生成的迭代器包含：A,B,C,D,A,B,C,D,…
 (3)repeat(elem [,n]): 生成无限个 elem 元素重复的迭代器,如果指定了参数n, 则只生成n 个elem 元素。
 比如使用repeat(10,3)生成的迭代器包含：10,10,10。

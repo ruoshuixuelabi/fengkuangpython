@@ -51,7 +51,7 @@ Rectangle(width=7, height=8)
 (8)object.__idivmod__(self,other): 求余运算,为 divmod 运算符提供支持。
 (9)object.__ipow__(self,other[,modulo]):乘方运算,为"**"运算符提供支持。
 (10)object.__ilshift__(self,other):左移运算,为"<<"运算符提供支持。
-(11)object.__irshift__(self,other): 右移运算,为">>"运算符提供支持。
+(11.1 Python的 GUI 库)object.__irshift__(self,other): 右移运算,为">>"运算符提供支持。
 (12)object.__iand__(self,other):按位与运算,为"&"运算符提供支持。
 (13)object.__ixor__(self,other): 按位异或运算,为"^"运算符提供支持。
 (14)object.__ior__(self,other):按位或运算,为"|"运算符提供支持。

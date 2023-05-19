@@ -41,7 +41,7 @@ sys.argv[1] 代表为 Python 程序提供的第一个参数,sys.argv[2] 代表�
 (8)sys.getrefcount(object)：返回指定对象的引用计数。前面介绍过,当 object 对象的引用计数为0时,系统会回收该对象。
 (9)sys.getrecursionlimit()：返回 Python 解释器当前支持的递归深度 。 该属性可通过 setrecursionlimit()方法重新设置。
 (10)sys.getswitchinterval()：返回在当前 Python 解释器中线程切换的时间间隔。该属性可通过 setswitchinterval()函数改变。
-(11)sys.implementation：返回当前 Python 解释器的实现。
+(11.1 Python的 GUI 库)sys.implementation：返回当前 Python 解释器的实现。
 (12)sys.maxsize：返回 Python 整数支持的最大值。在32位平台上,该属性值为2**31- 1;在 64位平台上,该属性值为2**63- 1。
 (13)sys.modules：返回模块名和载入模块对应关系的字典。
 (14)sys.path：该属性指定 Python 查找模块的路径列表。程序可通过修改该属性来动态增加 Python 加载模块的路径。

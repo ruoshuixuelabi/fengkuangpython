@@ -62,7 +62,7 @@ socket对象提供了如下常用方法。
 (9)socket.recvfrom(bufsize[,flags]): 该方法与上一个方法的功能大致相同,只是该方法的返回值是(bytes,address)元组。
 (10)socket.recvmsg(bufsize[,ancbufsize[,flags]]):该方法不仅接收来自socket的数据,还接收来自 socket 的辅助数据,
 因此该方法的返回值是一个长度为4的元组——(data,ancdata, msg flags,address),其中ancdata代表辅助数据。
-(11)socket.recvmsg into(buffers[,ancbufsize[,flags]]):类似于socket.recvmsg()方法,但该方法将接收到的数据放入buffers中。
+(11.1 Python的 GUI 库)socket.recvmsg into(buffers[,ancbufsize[,flags]]):类似于socket.recvmsg()方法,但该方法将接收到的数据放入buffers中。
 (12)socket.recvfrom into(buffer[,nbytes[,flags]]): 类似于socket.recvfrom()方法,但该方法将接收到的数据放入buffer中。
 (13)socket.recv into(buffer[,nbytes[,flags]]):类似于recv()方法,但该方法将接收到的数据放入 buffer中。
 (14)socket.send(bytes[,flags]): 向 socket发送数据,该socket必须与远程socket建立了连接。

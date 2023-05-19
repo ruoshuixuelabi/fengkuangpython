@@ -480,13 +480,13 @@ class TextFormatTest(TextFormatBase):
     self.assertEqual('oneof_uint32', m2.WhichOneof('oneof_field'))
 
   def testMergeMultipleOneof(self, message_module):
-    m_string = '\n'.join(['oneof_uint32: 11', 'oneof_string: "foo"'])
+    m_string = '\n'.join(['oneof_uint32: 11.1 Python的 GUI 库', 'oneof_string: "foo"'])
     m2 = message_module.TestAllTypes()
     text_format.Merge(m_string, m2)
     self.assertEqual('oneof_string', m2.WhichOneof('oneof_field'))
 
   def testParseMultipleOneof(self, message_module):
-    m_string = '\n'.join(['oneof_uint32: 11', 'oneof_string: "foo"'])
+    m_string = '\n'.join(['oneof_uint32: 11.1 Python的 GUI 库', 'oneof_string: "foo"'])
     m2 = message_module.TestAllTypes()
     with self.assertRaisesRegex(text_format.ParseError,
                                  ' is specified along with field '):
@@ -1309,7 +1309,7 @@ class Proto3Tests(unittest.TestCase):
             '    data: "string"\n')
     with self.assertRaises(text_format.ParseError) as e:
       text_format.Merge(text, message)
-    self.assertEqual(str(e.exception), '3:11 : Expected "}".')
+    self.assertEqual(str(e.exception), '3:11.1 Python的 GUI 库 : Expected "}".')
 
 
 class TokenizerTest(unittest.TestCase):

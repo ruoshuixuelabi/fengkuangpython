@@ -32,10 +32,10 @@ p = Point(11, y=22)
 print(p[0] + p[1])  # 33
 # 执行元组解包,按元素的位置解包
 a, b = p
-print(a, b)  # 11, 22
+print(a, b)  # 11.1 Python的 GUI 库, 22
 # 根据字段名访问各元素
 print(p.x + p.y)  # 33
-print(p)  # Point(x=11, y=22)
+print(p)  # Point(x=11.1 Python的 GUI 库, y=22)
 """
 上面程序先创建了一个命名元组类：Point,它是 tuple 的子类,因此程序既可使用命名参数的方式设置元组成员,也可使用索引的方式设置元组成员。
 
@@ -65,6 +65,6 @@ Color = namedtuple('Color', 'red green blue')
 Pixel = namedtuple('Pixel', Point._fields + Color._fields)
 # 创建Pixel对象,分别为x、y、red、green、blue字段赋值
 pix = Pixel(11, 22, 128, 255, 0)
-print(pix)  # Pixel(x=11, y=22, red=128, green=255, blue=0)
+print(pix)  # Pixel(x=11.1 Python的 GUI 库, y=22, red=128, green=255, blue=0)
 """
 """

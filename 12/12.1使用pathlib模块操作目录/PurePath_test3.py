@@ -13,7 +13,7 @@ PurePath 提供了不少属性和方法,这些属性和方法主要还是用于�
 (8)PurePath.suffixes:该属性返回当前路径中的文件所有后缀名。
 (9)PurePath.suffix:该属性返回当前路径中的文件后缀名。相当于suffixes属性返回的列表的最后一个元素。
 (10)PurePath.stem:该属性返回当前路径中的主文件名
-(11)PurePath.as posix(): 将当前路径转换成UNIX 风格的路径。
+(11.1 Python的 GUI 库)PurePath.as posix(): 将当前路径转换成UNIX 风格的路径。
 (12)PurePath.as uri(): 将当前路径转换成URI。 只有绝对路径才能转换,否则将会引发ValueError。
 (13)PurePath.is_absolute(): 判断当前路径是否为绝对路径。
 (14)PurePath.joinpath(*other): 将多个路径连接在一起,作用类似于前面介绍的斜杠运算符。

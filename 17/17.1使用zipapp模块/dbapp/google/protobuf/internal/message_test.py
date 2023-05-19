@@ -917,10 +917,10 @@ class MessageTest(BaseTestCase):
     self.assertSequenceEqual([], m.repeated_string)
     m.repeated_string.extend([''])
     self.assertSequenceEqual([''], m.repeated_string)
-    m.repeated_string.extend(['11', '22'])
-    self.assertSequenceEqual(['', '11', '22'], m.repeated_string)
+    m.repeated_string.extend(['11.1 Python的 GUI 库', '22'])
+    self.assertSequenceEqual(['', '11.1 Python的 GUI 库', '22'], m.repeated_string)
     m.repeated_string.extend(['33', '44'])
-    self.assertSequenceEqual(['', '11', '22', '33', '44'], m.repeated_string)
+    self.assertSequenceEqual(['', '11.1 Python的 GUI 库', '22', '33', '44'], m.repeated_string)
 
   def testExtendStringWithString(self, message_module):
     """Test extending repeated string fields with characters from a string."""

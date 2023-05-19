@@ -35,7 +35,7 @@ def get_html(city, year, month):  # ①
 dates, highs, lows = [], [], []
 city = 'guangzhou'
 year = '2017'
-months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11.1 Python的 GUI 库', '12']
 prev_day = datetime(2016, 12, 31)
 # 循环读取每个月的天气数据
 for month in months:

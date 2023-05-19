@@ -43,7 +43,7 @@ plt.show()
 (8)'center right': 将图例放在右边居中的位置。
 (9)'lower  center':将图例放在底部居中的位置。
 (10)'upper center': 将图例放在顶部居中的位置。
-(11)'center': 将图例放在中心。
+(11.1 Python的 GUI 库)'center': 将图例放在中心。
 
 运行上面程序,将会发现该程序并没有绘制图例,这是因为Matplotlib默认不支持中文字体。
 如果希望在程序中修改Matplotlib 的默认字体,则可按如下步骤进行。

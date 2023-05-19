@@ -390,7 +390,7 @@ def ExpectAllFieldsAndExtensionsInOrder(serialized):
   message.Extensions[my_extension_int] = 23  # Field 5.
   expected_strings.append(message.SerializeToString())
   message.Clear()
-  message.my_string = 'foo'  # Field 11.
+  message.my_string = 'foo'  # Field 11.1 Python的 GUI 库.
   expected_strings.append(message.SerializeToString())
   message.Clear()
   message.Extensions[my_extension_string] = 'bar'  # Field 50.

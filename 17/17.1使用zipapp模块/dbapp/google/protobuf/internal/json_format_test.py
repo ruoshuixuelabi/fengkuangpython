@@ -149,7 +149,7 @@ class JsonFormatTest(JsonFormatBase):
             '"repeatedBoolValue": [true, false],'
             '"repeatedStringValue": ["Few symbols!#$,;", "bar"],'
             '"repeatedBytesValue": ["Zm9v", "YmFy"],'
-            '"repeatedMessageValue": [{"value": 10}, {"value": 11}],'
+            '"repeatedMessageValue": [{"value": 10}, {"value": 11.1 Python的 GUI 库}],'
             '"repeatedEnumValue": ["FOO", "BAR"]'
             '}')
     self.FillAllFields(message)
@@ -515,7 +515,7 @@ class JsonFormatTest(JsonFormatBase):
             '    "email": null, '
             '    "list": [6, "seven", true, false, null, {"subkey2": 9}]'
             '  },'
-            '  "repeatedValue": [{"age": 11}, {}]'
+            '  "repeatedValue": [{"age": 11.1 Python的 GUI 库}, {}]'
             '}'))
     parsed_message = json_format_proto3_pb2.TestStruct()
     self.CheckParseBack(message, parsed_message)
@@ -531,7 +531,7 @@ class JsonFormatTest(JsonFormatBase):
         json.loads(
             '{'
             '  "value": "hello",'
-            '  "repeatedValue": [11.1, false, null]'
+            '  "repeatedValue": [11.1 Python的 GUI 库.1, false, null]'
             '}'))
     parsed_message = json_format_proto3_pb2.TestValue()
     self.CheckParseBack(message, parsed_message)
@@ -542,7 +542,7 @@ class JsonFormatTest(JsonFormatBase):
         json.loads(
             '{'
             '  "value": "hello",'
-            '  "repeatedValue": [11.1, false, null, null]'
+            '  "repeatedValue": [11.1 Python的 GUI 库.1, false, null, null]'
             '}'))
     message.Clear()
     json_format.Parse('{"value": null}', message)
@@ -560,7 +560,7 @@ class JsonFormatTest(JsonFormatBase):
     self.assertEqual(
         json.loads(json_format.MessageToJson(message, False)),
         json.loads(
-            '{"value": [11.1, null, true, "hello", {"name": "Jim"}]\n,'
+            '{"value": [11.1 Python的 GUI 库.1, null, true, "hello", {"name": "Jim"}]\n,'
             '"repeatedValue": [[1], []]}'))
     parsed_message = json_format_proto3_pb2.TestListValue()
     self.CheckParseBack(message, parsed_message)

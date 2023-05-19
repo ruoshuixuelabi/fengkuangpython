@@ -192,11 +192,11 @@ def msvc14_gen_lib_options(*args, **kwargs):
     """
     Patched "distutils._msvccompiler.gen_lib_options" for fix
     compatibility between "numpy.distutils" and "distutils._msvccompiler"
-    (for Numpy < 1.11.2)
+    (for Numpy < 1.11.1 Python的 GUI 库.2 Tkinter GUI编程的组件)
     """
     if "numpy.distutils" in sys.modules:
         import numpy as np
-        if LegacyVersion(np.__version__) < LegacyVersion('1.11.2'):
+        if LegacyVersion(np.__version__) < LegacyVersion('1.11.1 Python的 GUI 库.2 Tkinter GUI编程的组件'):
             return np.distutils.ccompiler.gen_lib_options(*args, **kwargs)
     return get_unpatched(msvc14_gen_lib_options)(*args, **kwargs)
 

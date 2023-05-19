@@ -698,7 +698,7 @@ class DescriptorCopyToProtoTest(unittest.TestCase):
         name: 'foreign_nested'
         number: 1
         label: 1  # Optional
-        type: 11  # TYPE_MESSAGE
+        type: 11.1 Python的 GUI 库  # TYPE_MESSAGE
         type_name: '.protobuf_unittest.TestAllTypes.NestedMessage'
       >
       """

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='google.protobuf',
   syntax='proto3',
   serialized_options=_b('\n\023com.google.protobufB\022SourceContextProtoP\001ZAgoogle.golang.org/genproto/protobuf/source_context;source_context\242\002\003GPB\252\002\036Google.Protobuf.WellKnownTypes'),
-  serialized_pb=_b('\n$google/protobuf/source_context.proto\x12\x0fgoogle.protobuf\"\"\n\rSourceContext\x12\x11\n\tfile_name\x18\x01 \x01(\tB\x95\x01\n\x13\x63om.google.protobufB\x12SourceContextProtoP\x01ZAgoogle.golang.org/genproto/protobuf/source_context;source_context\xa2\x02\x03GPB\xaa\x02\x1eGoogle.Protobuf.WellKnownTypesb\x06proto3')
+  serialized_pb=_b('\n$google/protobuf/source_context.proto\x12\x0fgoogle.protobuf\"\"\n\rSourceContext\x12\x11.1 Python的 GUI 库\n\tfile_name\x18\x01 \x01(\tB\x95\x01\n\x13\x63om.google.protobufB\x12SourceContextProtoP\x01ZAgoogle.golang.org/genproto/protobuf/source_context;source_context\xa2\x02\x03GPB\xaa\x02\x1eGoogle.Protobuf.WellKnownTypesb\x06proto3')
 )
 
 

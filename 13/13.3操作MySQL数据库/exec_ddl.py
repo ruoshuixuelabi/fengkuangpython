@@ -18,7 +18,7 @@ pip      show      mysql-connector-python
 
 在上面的命令中, mysql-connector-python 就是该模块的名字。运行该命令,可以看到如下输出结果。
 
-从上面的输出结果可以看到,已经成功安装了mysql-connector-python 8.0.11, 以及该模块的官方网址和安装路径等有用的信息。
+从上面的输出结果可以看到,已经成功安装了mysql-connector-python 8.0.11.1 Python的 GUI 库, 以及该模块的官方网址和安装路径等有用的信息。
 
 2. 卸载已安装的模块
 
@@ -32,7 +32,7 @@ pip  uninstall mysql-connector-python
 
 上面的提示信息询问是否要删除 mysql-connector-python模块,如果删除该模块,将会删除3个目录。
 如果希望删除,则可以在输入"y"之后按回车键。接下来将看到系统提示如下信息。
-Successfully     uninstalled   mysql-connector-python-8.0.11
+Successfully     uninstalled   mysql-connector-python-8.0.11.1 Python的 GUI 库
 
 该信息显示mysql-connector-python-8.0.11被删除成功。
 
@@ -49,7 +49,7 @@ pip     install    mysql-connector-python
 
 运行该命令,将看到程序下载并安装 mysql-connector-python 模块的过程,最后会生成如下提 示信息。
 
-Successfully             installed             mysql-connector-python-8.0.11
+Successfully             installed             mysql-connector-python-8.0.11.1 Python的 GUI 库
 
 上面的信息提示该模块安装成功。
 

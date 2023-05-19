@@ -51,7 +51,7 @@ TEST_VALUES = [
      b"signi\\fying\\ nothing\\"),
     ("\\010\\t\\n\\013\\014\\r",
      "\x08\\t\\n\x0b\x0c\\r",
-     b"\010\011\012\013\014\015")]
+     b"\010\011.1 Python的 GUI 库\012\013\014\015")]
 
 
 class TextEncodingTestCase(unittest.TestCase):

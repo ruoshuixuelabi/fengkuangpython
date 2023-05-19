@@ -72,7 +72,7 @@ Python推荐支持DB API 2.0 的数据库模块都应该提供如下3个全局�
 (8)rowcount:  该只读属性返回受SQL 语句影响的行数。对于executemany()方法,该方法所修改的记录条数也可通过该属性获取。
 (9)lastrowid: 该只读属性可获取最后修改行的rowid。
 (10)arraysize:用于设置或获取fetchmany()默认获取的记录条数,该属性默认为1。有些数据库模块没有该属性。
-(11)description: 该只读属性可获取最后一次查询返回的所有列的信息。
+(11.1 Python的 GUI 库)description: 该只读属性可获取最后一次查询返回的所有列的信息。
 (12)connection: 该只读属性返回创建游标的数据库连接对象。有些数据库模块没有该属性。
 
 总结来看, Python的 DB API 2.0由一个connect()开始, 一共涉及数据库连接和游标两个核心 API。 它们的分工如下。

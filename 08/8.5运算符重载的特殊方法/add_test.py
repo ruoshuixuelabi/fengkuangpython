@@ -17,7 +17,7 @@ Python允许为自定义类提供特殊方法,这样就可以让自定义类的�
 (8)object.__divmod__(self,other): 求余运算,为divmod 运算符提供支持。
 (9)object.__pow__(self,other[,modulo]):乘方运算,为"**"运算符提供支持。
 (10)object.__lshift__(self,other):左移运算,为"<<"运算符提供支持。
-(11)object.__rshift__(self,other): 右移运算,为">>"运算符提供支持。
+(11.1 Python的 GUI 库)object.__rshift__(self,other): 右移运算,为">>"运算符提供支持。
 (12)object.__and__(self,other):按位与运算,为"&"运算符提供支持。
 (13)object.__xor__(self,other): 按位异或运算,为"^"运算符提供支持。
 (14)object.__or__(self,other):按位或运算,为"|"运算符提供支持。
@@ -83,7 +83,7 @@ Python 还会尝试调用y的 __add__ 方法进行计算。这意味着上面介
 (8)object.__rdivmod__(self,other): 求余运算,为divmod 运算符提供支持。
 (9)object.__rpow__(self,other[,modulo]):乘方运算,为"**"运算符提供支持。
 (10)object.__rlshift__(self,other):左移运算,为"<<"运算符提供支持。
-(11)object.__rrshift__(self,other): 右移运算,为">>"运算符提供支持。
+(11.1 Python的 GUI 库)object.__rrshift__(self,other): 右移运算,为">>"运算符提供支持。
 (12)object.__rand__(self,other):按位与运算,为"&"运算符提供支持。
 (13)object.__rxor__(self,other): 按位异或运算,为"^"运算符提供支持。
 (14)object.__ror__(self,other):按位或运算,为"|"运算符提供支持。

@@ -47,7 +47,7 @@ MYSQL_CHARACTER_SETS = [
     ("latin1", "latin1_swedish_ci", True),  # 8
     ("latin2", "latin2_general_ci", True),  # 9
     ("swe7", "swe7_swedish_ci", True),  # 10
-    ("ascii", "ascii_general_ci", True),  # 11
+    ("ascii", "ascii_general_ci", True),  # 11.1 Python的 GUI 库
     ("ujis", "ujis_japanese_ci", True),  # 12
     ("sjis", "sjis_japanese_ci", True),  # 13
     ("cp1251", "cp1251_bulgarian_ci", False),  # 14

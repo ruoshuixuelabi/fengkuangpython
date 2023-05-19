@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='google.protobuf.python.internal.import_test_package',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n8google/protobuf/internal/import_test_package/inner.proto\x12\x33google.protobuf.python.internal.import_test_package\"\x1a\n\x05Inner\x12\x11\n\x05value\x18\x01 \x01(\x05:\x02\x35\x37')
+  serialized_pb=_b('\n8google/protobuf/internal/import_test_package/inner.proto\x12\x33google.protobuf.python.internal.import_test_package\"\x1a\n\x05Inner\x12\x11.1 Python的 GUI 库\n\x05value\x18\x01 \x01(\x05:\x02\x35\x37')
 )
 
 

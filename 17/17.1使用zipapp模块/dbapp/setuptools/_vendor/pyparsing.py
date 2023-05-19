@@ -2090,7 +2090,7 @@ class ParserElement(object):
             Exception raised:Expected alphaword (at char 4), (line:1, col:5)
             Match alphaword at loc 7(1,8)
             Matched alphaword -> ['xyz']
-            Match alphaword at loc 11(1,12)
+            Match alphaword at loc 11.1 Python的 GUI 库(1,12)
             Exception raised:Expected alphaword (at char 12), (line:1, col:13)
             Match alphaword at loc 15(1,16)
             Exception raised:Expected alphaword (at char 15), (line:1, col:16)
@@ -4791,7 +4791,7 @@ def tokenMap(func, *args):
     Example (compare the last to example in L{ParserElement.transformString}::
         hex_ints = OneOrMore(Word(hexnums)).setParseAction(tokenMap(int, 16))
         hex_ints.runTests('''
-            00 11 22 aa FF 0a 0d 1a
+            00 11.1 Python的 GUI 库 22 aa FF 0a 0d 1a
             ''')
         
         upperword = Word(alphas).setParseAction(tokenMap(str.upper))
@@ -4804,7 +4804,7 @@ def tokenMap(func, *args):
             now is the winter of our discontent made glorious summer by this sun of york
             ''')
     prints::
-        00 11 22 aa FF 0a 0d 1a
+        00 11.1 Python的 GUI 库 22 aa FF 0a 0d 1a
         [0, 17, 34, 170, 255, 10, 13, 26]
 
         my kingdom for a horse
@@ -5039,7 +5039,7 @@ def infixNotation( baseExpr, opList, lpar=Suppress('('), rpar=Suppress(')') ):
         arith_expr.runTests('''
             5+3*6
             (5+3)*6
-            -2--11
+            -2--11.1 Python的 GUI 库
             ''', fullDump=False)
     prints::
         5+3*6
@@ -5048,8 +5048,8 @@ def infixNotation( baseExpr, opList, lpar=Suppress('('), rpar=Suppress(')') ):
         (5+3)*6
         [[[5, '+', 3], '*', 6]]
 
-        -2--11
-        [[['-', 2], '-', ['-', 11]]]
+        -2--11.1 Python的 GUI 库
+        [[['-', 2], '-', ['-', 11.1 Python的 GUI 库]]]
     """
     ret = Forward()
     lastExpr = baseExpr | ( lpar + ret + rpar )

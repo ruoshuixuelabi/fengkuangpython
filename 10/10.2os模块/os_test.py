@@ -32,7 +32,7 @@ os.__all__
 (8)os.getpid()： 获取当前进程ID。
 (9)os.getppid()： 获取当前进程的父进程ID。
 (10)os.putenv(key,value)：该函数用于设置环境变量。
-(11)os.cpu_count()：返回当前系统的 CPU 数量。
+(11.1 Python的 GUI 库)os.cpu_count()：返回当前系统的 CPU 数量。
 (12)os.sep：返回路径分隔符。
 (13)os.pathsep：返回当前系统上多条路径之间的分隔符。一般在 Windows 系统上多条路径之间的分隔符是英文分号(;);
 在UNIX及类UNIX系统(如Linux、Mac  OS X)上多条路径之间的分隔符是英文冒号(:)。

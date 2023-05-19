@@ -41,7 +41,7 @@ tm_wday=3,tm_yday=1,tm_isdst=0)很清晰地代表时间。
 (8)time.sleep(secs): 暂停secs秒,什么都不干。
 (9)time.strftime(format[,t]): 将时间元组或 struct_time 对象格式化为指定格式的时间字符串。 如果不指定参数t,则默认转换当前时间。
 (10)time.strptime(string[,format]): 将字符串格式的时间解析成 struct_time 对象。
-(11)time.time():  返回从1970年1月1日0点整到现在过了多少秒。
+(11.1 Python的 GUI 库)time.time():  返回从1970年1月1日0点整到现在过了多少秒。
 (12)time.timezone: 返回本地时区的时间偏移,以秒为单位。
 (13)time.tzname:  返回本地时区的名字。
 
@@ -55,7 +55,7 @@ import time
 # 将当前时间转换为时间字符串
 print(time.asctime())
 # 将指定时间转换时间字符串,时间元组的后面3个元素没有设置
-print(time.asctime((2018, 2, 4, 11, 8, 23, 0, 0, 0)))  # Mon Feb  4 11:08:23 2018
+print(time.asctime((2018, 2, 4, 11, 8, 23, 0, 0, 0)))  # Mon Feb  4 11.1 Python的 GUI 库:08:23 2018
 # 将以秒数为代表的时间转换为时间字符串
 print(time.ctime(30))  # Thu Jan  1 08:00:30 1970
 # 将以秒数为代表的时间转换为struct_time对象。
