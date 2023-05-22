@@ -1,6 +1,6 @@
 """
-os.rmdir(path): 删除 path 对应的空目录。如果目录非空,则抛出一个OSError 异常。程序可以先用os.remove()函数删除文件。
-os.removedirs(path): 递归删除目录。其功能类似于 rmdir(), 但该函数可以递归删除 abc/xyz/wawa 目录,
+(1)os.rmdir(path)：删除 path 对应的空目录。如果目录非空,则抛出一个 OSError 异常。程序可以先用 os.remove() 函数删除文件。
+(2)os.removedirs(path)：递归删除目录。其功能类似于 rmdir(),但该函数可以递归删除 abc/xyz/wawa 目录,
 它会从wawa 子目录开始删除,然后删除xyz 子目录,最后删除abc 目录。
 
 如下程序示范了如何删除目录。

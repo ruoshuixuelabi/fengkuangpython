@@ -5,16 +5,17 @@
 下面程序示范了使用二进制数据输出,通过这种方式来实现以 UTF-8 字符集保存文件。
 """
 import os
+
 f = open('y.txt', 'wb+')
 # os.linesep代表当前操作系统上的换行符
 f.write(('我爱Python' + os.linesep).encode('utf-8'))
-f.writelines((('土门壁甚坚,'+ os.linesep).encode('utf-8'),
-    ('杏园度亦难。'+ os.linesep).encode('utf-8'),
-    ('势异邺城下,'+ os.linesep).encode('utf-8'),
-    ('纵死时犹宽。'+ os.linesep).encode('utf-8')))
+f.writelines((('土门壁甚坚,' + os.linesep).encode('utf-8'),
+              ('杏园度亦难。' + os.linesep).encode('utf-8'),
+              ('势异邺城下,' + os.linesep).encode('utf-8'),
+              ('纵死时犹宽。' + os.linesep).encode('utf-8')))
 """
 上面程序中的粗体字代码以 wb+ 模式打开文件,这意味着程序会以二进制形式来输出文件,此时程序输出的必须是字节串,不能是字符串。
-因此,程序调用encode()方法将字符串转换成字节串,转换时指定使用 UTF-8 字符集,这意味着程序将会以 UTF-8 字符集来保存文件。
+因此,程序调用 encode()方法将字符串转换成字节串,转换时指定使用 UTF-8 字符集,这意味着程序将会以 UTF-8 字符集来保存文件。
 
 该程序输出的文件内容与上一个程序输出的文件内容相同,只是该程序输出的文件内容是以 UTF-8 字符集保存的。
 """

@@ -1,5 +1,5 @@
 """
-1.  PurePath 对象支持各种比较运算符,它们既可比较是否相等,也可比较大小------实际上就是比较它们的路径字符串。
+PurePath 对象支持各种比较运算符,它们既可比较是否相等,也可比较大小------实际上就是比较它们的路径字符串。
 
 提示：PurePath 只是代表特定平台的路径字符串,读者可以把它们看作包装后的字符串------它们的本质就是字符串
 
@@ -25,7 +25,7 @@ print(PureWindowsPath('crazyit') == PurePosixPath('crazyit'))  # False
 # print(PureWindowsPath('info') < PurePosixPath('info')) # TypeError
 """
 PurePath 对象支持斜杠(/)作为运算符,该运算符的作用是将多个路径连接起来。
-不管是 UNIX 风格的路径,还是Windows 风格的路径,都是使用斜杠作为连接运算符的(程序清单同上)。
+不管是 UNIX 风格的路径,还是 Windows 风格的路径,都是使用斜杠作为连接运算符的(程序清单同上)。
 """
 pp = PureWindowsPath('abc')
 # 将多个路径拼起来(Windows风格的路径)

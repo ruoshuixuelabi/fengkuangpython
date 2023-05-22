@@ -1,5 +1,5 @@
 """
-此外,Path 还提供了read_bytes()和 read_text(encoding=None,errors=None)方法,
+此外,Path 还提供了 read_bytes()和 read_text(encoding=None,errors=None)方法,
 分别用于读取该 Path 对应文件的字节数据(二进制数据)和文本数据;
 也提供了 write_bytes(data)和 Path.write_text(data,encoding=None,errors=None)方法来输出字节数据(二进制数据)和文本数据。
 
