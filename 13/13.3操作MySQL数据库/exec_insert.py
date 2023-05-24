@@ -1,6 +1,8 @@
 """
-与使用 SQLite 数据库模块类似, MySQL 数据库模块同样可以使用游标的execute()方法执行 DML 的 insert、update、
-delete语句,对数据库进行插入、修改和删除数据操作。
+13.3.4 执行 DML 语句
+
+与使用 SQLite 数据库模块类似,MySQL 数据库模块同样可以使用游标的 execute()方法执行 DML 的 insert、update、
+delete 语句,对数据库进行插入、修改和删除数据操作。
 
 例如,如下程序示范了向数据库的两个数据表中分别插入一条数据。
 """
@@ -8,16 +10,14 @@ delete语句,对数据库进行插入、修改和删除数据操作。
 import mysql.connector
 
 # ①、连接数据库
-conn = conn = mysql.connector.connect(user='root', password='32147',
-                                      host='localhost', port='3306',
-                                      database='python', use_unicode=True)
+conn = mysql.connector.connect(user='root', password='32147',
+                               host='localhost', port='3306',
+                               database='python', use_unicode=True)
 # ②、获取游标
 c = conn.cursor()
 # ③、调用执行insert语句插入数据
-c.execute('insert into user_tb values(null, %s, %s, %s)',
-          ('孙悟空', '123456', 'male'))
-c.execute('insert into order_tb values(null, %s, %s, %s, %s)',
-          ('鼠标', '34.2', '3', 1))
+c.execute('insert into user_tb values(null, %s, %s, %s)', ('孙悟空', '123456', 'male'))
+c.execute('insert into order_tb values(null, %s, %s, %s, %s)', ('鼠标', '34.2', '3', 1))
 conn.commit()
 # ④、关闭游标
 c.close()

@@ -2,9 +2,9 @@
 import mysql.connector
 
 # ①、连接数据库
-conn = conn = mysql.connector.connect(user='root', password='32147',
-                                      host='localhost', port='3306',
-                                      database='python', use_unicode=True)
+conn = mysql.connector.connect(user='root', password='32147',
+                               host='localhost', port='3306',
+                               database='python', use_unicode=True)
 # ②、获取游标
 c = conn.cursor()
 # ③、调用执行select语句查询数据
@@ -14,9 +14,9 @@ for col in (c.description):
     print(col[0], end='\t')
 print('\n--------------------------------')
 while True:
-    # 每次抓取3条记录，该方法返回一个多个元组组成的列表
+    # 每次抓取3条记录,该方法返回一个多个元组组成的列表
     rows = c.fetchmany(3)
-    # 如果抓取的row为None，退出循环
+    # 如果抓取的row为None,退出循环
     if not rows:
         break
     # 再次使用循环遍历获取的列表

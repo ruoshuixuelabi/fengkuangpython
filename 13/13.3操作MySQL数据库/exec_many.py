@@ -26,7 +26,7 @@ conn.close()
 """
 该程序与前面使用 SQLite 数据库模块重复执行SQL 语句的程序基本相同,只是该程序在 SQL 语句中使用了%s 作为占位符。
 
-使用MySQL 数据库模块中游标的executemany(方法同样可重复执行update、delete语句,
-在本书配套代码的 codesl13-13.3 目录下可找到一个 executemany_update.py 程序,
+使用 MySQL 数据库模块中游标的 executemany()方法同样可重复执行update、delete语句,
+在本书配套代码的 codes/13/13.3 目录下可找到一个 executemany_update.py 程序,
 该程序使用 executemany()方法重复执行update语句,这完全是允许的。
 """

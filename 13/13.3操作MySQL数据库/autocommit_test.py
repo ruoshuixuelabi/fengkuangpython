@@ -1,15 +1,15 @@
 """
-需要说明的是, MySQL 数据库模块的连接对象有一个 autocommit 属性,如果将该属性设为 True,
-则意味着关闭该连接的事务支持,程序每次执行 DML 语句之后都会自动提交,这样程序就无须调用连接对象的commit()方法来提交事务了。
+需要说明的是,MySQL 数据库模块的连接对象有一个 autocommit 属性,如果将该属性设为 True,
+则意味着关闭该连接的事务支持,程序每次执行 DML 语句之后都会自动提交,这样程序就无须调用连接对象的 commit()方法来提交事务了。
 例如如下程序。
 """
 # 导入访问MySQL的模块
 import mysql.connector
 
 # ①、连接数据库
-conn = conn = mysql.connector.connect(user='root', password='32147',
-                                      host='localhost', port='3306',
-                                      database='python', use_unicode=True)
+conn = mysql.connector.connect(user='root', password='32147',
+                               host='localhost', port='3306',
+                               database='python', use_unicode=True)
 # 将autocommit设置True,关闭事务
 conn.autocommit = True
 # ②、获取游标
