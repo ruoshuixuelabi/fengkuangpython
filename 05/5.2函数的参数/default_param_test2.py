@@ -22,7 +22,7 @@ printTriangle(char='*')
 """
 上面程序定义了一个 printTriangle()函数,该函数的第一个 char 参数没有默认值,第二个 height 参数有默认值。
 
-上面程序中第一次调用 printTriangle()时,程序使用两个位置参数分别为char、height传入参数值,这当然是允许的;
+上面程序中第一次调用 printTriangle()时,程序使用两个位置参数分别为 char、height 传入参数值,这当然是允许的;
 第二次调用 printTriangle()时,第一个参数使用位置参数,那么该参数值将传给 char 参数,
 第二个参数使用关键字参数为height参数传入参数值,这也是允许的;
 第三次调用 printTriangle()时,只使用关键字参数为char参数传入参数值,此时height参数将使用默认值,这是符合语法的。

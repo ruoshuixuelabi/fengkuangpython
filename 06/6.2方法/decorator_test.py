@@ -34,9 +34,9 @@ def funB():
 
 print(funB)  # fkit
 """
-上面程序使用 @funA 修饰 funB, 这意味着程序要完成两步操作。
-①将 funB 作为 funA() 的参数,也就是上面的粗体字代码相当于执行funA(funB)。
-②将 funB 替换成第①步执行的结果,funA() 执行完成后返回 fkit,因此 funB 就不再是函数,而是被替换成一个字符串。
+上面程序使用 @funA 修饰 funB,这意味着程序要完成两步操作。
+①将 funB 作为 funA()的参数,也就是上面的粗体字代码相当于执行 funA(funB)。
+②将 funB 替换成第①步执行的结果,funA()执行完成后返回 fkit,因此 funB 就不再是函数,而是被替换成一个字符串。
 运行上面程序,可以看到如下输出结果。
 A
 B
@@ -72,9 +72,9 @@ my_test将会替换(装饰)成该语句的返回值;由于foo()函数返回bar�
 '''
 
 
-# 下面程序使用@foo修饰 my_test() 函数,因此程序同样会执行foo(my_test), 并将 my_test 替换成foo()函数的返回值：bar函数。
-# 所以,下面程序第二行粗体字代码在打印 my_test 函数时,实际上输出的是bar函数,这说明my test已经被替换成bar函数。
-# 接下来程序两次调用 my_test()函数,实际上就是调用bar()函数。
+# 下面程序使用 @foo 修饰 my_test()函数,因此程序同样会执行 foo(my_test),并将 my_test 替换成foo()函数的返回值：bar函数。
+# 所以,下面程序第二行粗体字代码在打印 my_test 函数时,实际上输出的是 bar 函数,这说明my test已经被替换成bar函数。
+# 接下来程序两次调用 my_test()函数,实际上就是调用 bar() 函数。
 @foo
 def my_test(a):
     print("==my_test函数==", a)
@@ -86,7 +86,7 @@ print(my_test)  # <function foo.<locals>.bar at 0x00000000021FABF8>
 my_test(10)
 my_test(6, 5)
 """
-上面程序定义了一个装饰器函数foo,该函数执行完成后并不是返回普通值,而是返回 bar 函数(这是关键),
+上面程序定义了一个装饰器函数 foo,该函数执行完成后并不是返回普通值,而是返回 bar 函数(这是关键),
 这意味着被该@foo修饰的函数最终都会被替换成bar函数。
 
 上面程序使用@foo修饰 my_test()函数,因此程序同样会执行foo(my_test),并将 my_test 替换成 foo()函数的返回值：bar 函数。
